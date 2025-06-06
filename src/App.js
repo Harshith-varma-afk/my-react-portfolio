@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer'; // Re-enabled for animations
+import React, { useState, useEffect, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
+import emailjs from '@emailjs/browser'; // Import EmailJS
 import './App.css';
 
 // --- Data Definitions (for easy management) ---
@@ -150,7 +151,7 @@ const Hero = ({ smoothScroll }) => {
         }
 
         return () => clearTimeout(timer);
-    }, [displayedText, isDeleting, currentTextIndex]); // FIXED: Removed unnecessary `dynamicTexts` dependency
+    }, [displayedText, isDeleting, currentTextIndex]);
 
     return (
         <section id="about" className="hero">
@@ -170,7 +171,7 @@ const Hero = ({ smoothScroll }) => {
 };
 
 const Skills = ({ skills }) => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.1,
     });
@@ -197,7 +198,7 @@ const Skills = ({ skills }) => {
 };
 
 const Certifications = ({ certifications }) => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.1,
     });
@@ -217,7 +218,7 @@ const Certifications = ({ certifications }) => {
 };
 
 const CertificationCard = ({ cert }) => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.2,
     });
@@ -238,7 +239,7 @@ const CertificationCard = ({ cert }) => {
 
 
 const ProjectCard = ({ project }) => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.2,
     });
@@ -263,7 +264,7 @@ const ProjectCard = ({ project }) => {
 };
 
 const Projects = ({ projects }) => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.1,
     });
@@ -283,32 +284,53 @@ const Projects = ({ projects }) => {
 };
 
 const Contact = () => {
-    const { ref, inView } = useInView({ // Re-enabled hook
+    const { ref, inView } = useInView({
         triggerOnce: true,
         threshold: 0.1,
     });
 
+    // We keep the state to control the form inputs
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionMessage, setSubmissionMessage] = useState('');
-
+    
+    // The handleChange function updates the state as the user types
     const handleChange = (e) => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    // The handleSubmit function now uses the state object to send the email
+    const handleSubmit = (e) => {
         e.preventDefault();
         setIsSubmitting(true);
         setSubmissionMessage('');
-        try {
-            await new Promise(resolve => setTimeout(resolve, 1500));
+
+        // The template params object should match the variables in your EmailJS template
+        const templateParams = {
+            name: formData.name,
+            email: formData.email,
+            message: formData.message,
+        };
+
+        emailjs.send(
+            process.env.REACT_APP_EMAILJS_SERVICE_ID,
+            process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+            templateParams,
+            process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+        )
+        .then((response) => {
+            console.log('SUCCESS!', response.status, response.text);
             setSubmissionMessage('Message sent successfully! Thank you.');
+            // Clear the form fields by resetting the state
             setFormData({ name: '', email: '', message: '' });
-        } catch (error) {
+        })
+        .catch((err) => {
+            console.log('FAILED...', err);
             setSubmissionMessage('Failed to send message. Please try again later.');
-        } finally {
+        })
+        .finally(() => {
             setIsSubmitting(false);
-        }
+        });
     };
 
     return (
@@ -329,7 +351,7 @@ const Contact = () => {
                     <button type="submit" disabled={isSubmitting}>
                         {isSubmitting ? 'Sending...' : 'Send Message'}
                     </button>
-                         {submissionMessage && <p className="submission-message">{submissionMessage}</p>}
+                    {submissionMessage && <p className="submission-message">{submissionMessage}</p>}
                 </form>
             </div>
         </section>
@@ -349,9 +371,8 @@ const Footer = () => {
 // --- Main App Component ---
 const App = () => {
     useEffect(() => {
-        // Enforce dark mode by default
         document.body.setAttribute('data-theme', 'dark');
-    }, []); // Runs once on component mount
+    }, []);
 
     const smoothScroll = (id) => {
         const element = document.querySelector(id);
