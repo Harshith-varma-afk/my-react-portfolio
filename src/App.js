@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import { useInView } from 'react-intersection-observer'; // Temporarily comment out main import if not used directly by App
+import { useInView } from 'react-intersection-observer'; // Re-enabled for animations
 import './App.css';
 
 // --- Data Definitions (for easy management) ---
@@ -25,7 +25,6 @@ const projectsData = [
 ];
 
 const skillsData = [
-    // ... (keep your skillsData as is)
     {
         category: "Programming Languages",
         items: ["Python", "C", "C++"]
@@ -53,7 +52,6 @@ const skillsData = [
 ];
 
 const certificationsData = [
-    // ... (keep your certificationsData as is)
     {
         id: 1,
         title: "Introduction to Machine Learning",
@@ -78,7 +76,6 @@ const certificationsData = [
 ];
 
 const dynamicTexts = [
-    // ... (keep your dynamicTexts as is)
     "Passionate Data Science Student",
     "Machine Learning Enthusiast",
     "AI Explorer",
@@ -92,7 +89,7 @@ const dynamicTexts = [
 
 // --- Components ---
 
-const Navbar = ({ smoothScroll }) => { // Removed toggleTheme and currentTheme props
+const Navbar = ({ smoothScroll }) => {
     return (
         <nav className="navbar">
             <div className="container">
@@ -104,7 +101,6 @@ const Navbar = ({ smoothScroll }) => { // Removed toggleTheme and currentTheme p
                     <a href="#projects" onClick={(e) => { e.preventDefault(); smoothScroll('#projects'); }}>Projects</a>
                     <a href="resume.pdf" download="Harshith_Varma_Resume.pdf" className="resume-link">Resume</a>
                     <a href="#contact" onClick={(e) => { e.preventDefault(); smoothScroll('#contact'); }}>Contact</a>
-                    {/* Theme toggle button removed */}
                 </div>
             </div>
         </nav>
@@ -127,7 +123,7 @@ const Hero = ({ smoothScroll }) => {
         const handleTypingEffect = () => {
             if (!isDeleting) {
                 setDisplayedText(prev => currentPhrase.slice(0, prev.length + 1));
-                if (displayedText.length === currentPhrase.length -1) {
+                if (displayedText.length === currentPhrase.length - 1) {
                     timer = setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
                 } else {
                     timer = setTimeout(handleTypingEffect, typingSpeed);
@@ -137,27 +133,24 @@ const Hero = ({ smoothScroll }) => {
                 if (displayedText.length === 0) {
                     setIsDeleting(false);
                     setCurrentTextIndex(prevIndex => (prevIndex + 1) % dynamicTexts.length);
-                     // No explicit pause before typing next, relies on effect re-trigger
                 } else {
                     timer = setTimeout(handleTypingEffect, deletingSpeed);
                 }
             }
         };
-        
-        // Simplified logic for triggering typing or deletion
+
         if (!isDeleting && displayedText.length < currentPhrase.length) {
-           timer = setTimeout(handleTypingEffect, typingSpeed);
+            timer = setTimeout(handleTypingEffect, typingSpeed);
         } else if (isDeleting && displayedText.length > 0) {
-           timer = setTimeout(handleTypingEffect, deletingSpeed);
+            timer = setTimeout(handleTypingEffect, deletingSpeed);
         } else if (!isDeleting && displayedText.length === currentPhrase.length) {
-           timer = setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
-        } else if (!isDeleting && displayedText.length === 0 && currentPhrase.length > 0) { // Handles start of new phrase
+            timer = setTimeout(() => setIsDeleting(true), pauseBeforeDelete);
+        } else if (!isDeleting && displayedText.length === 0 && currentPhrase.length > 0) {
             timer = setTimeout(handleTypingEffect, pauseBeforeType);
         }
 
-
         return () => clearTimeout(timer);
-    }, [displayedText, isDeleting, currentTextIndex, dynamicTexts]); // Added dynamicTexts to deps as it is used
+    }, [displayedText, isDeleting, currentTextIndex]); // FIXED: Removed unnecessary `dynamicTexts` dependency
 
     return (
         <section id="about" className="hero">
@@ -177,8 +170,10 @@ const Hero = ({ smoothScroll }) => {
 };
 
 const Skills = ({ skills }) => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value, animations will always be 'inView'
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.1,
+    });
 
     return (
         <section id="skills" ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
@@ -202,8 +197,10 @@ const Skills = ({ skills }) => {
 };
 
 const Certifications = ({ certifications }) => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.1,
+    });
 
     return (
         <section id="certifications" ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
@@ -220,8 +217,10 @@ const Certifications = ({ certifications }) => {
 };
 
 const CertificationCard = ({ cert }) => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.2,
+    });
 
     return (
         <div ref={ref} className={`certification-card card-animate ${inView ? 'is-inView' : ''}`}>
@@ -239,8 +238,10 @@ const CertificationCard = ({ cert }) => {
 
 
 const ProjectCard = ({ project }) => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.2,
+    });
 
     return (
         <div ref={ref} className={`project-card card-animate ${inView ? 'is-inView' : ''}`}>
@@ -262,9 +263,10 @@ const ProjectCard = ({ project }) => {
 };
 
 const Projects = ({ projects }) => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value
-
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.1,
+    });
 
     return (
         <section id="projects" ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
@@ -281,8 +283,10 @@ const Projects = ({ projects }) => {
 };
 
 const Contact = () => {
-    const ref = null; // DEBUG: Dummy value
-    const inView = true; // DEBUG: Dummy value
+    const { ref, inView } = useInView({ // Re-enabled hook
+        triggerOnce: true,
+        threshold: 0.1,
+    });
 
     const [formData, setFormData] = useState({ name: '', email: '', message: '' });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -344,8 +348,6 @@ const Footer = () => {
 
 // --- Main App Component ---
 const App = () => {
-    // Removed theme state and toggle function
-
     useEffect(() => {
         // Enforce dark mode by default
         document.body.setAttribute('data-theme', 'dark');
@@ -362,7 +364,7 @@ const App = () => {
 
     return (
         <>
-            <Navbar smoothScroll={smoothScroll} /> {/* Removed theme props */}
+            <Navbar smoothScroll={smoothScroll} />
             <Hero smoothScroll={smoothScroll} />
             <Skills skills={skillsData} />
             <Certifications certifications={certificationsData} />
