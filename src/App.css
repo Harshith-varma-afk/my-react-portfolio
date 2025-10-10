@@ -534,7 +534,7 @@ section h2::after {
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 3rem;
 }
 
 .experience-card {

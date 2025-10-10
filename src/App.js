@@ -25,9 +25,9 @@ const projectsData = [
     },
     {
         id: 3,
-        image: "sql.jpg",
-        title: "Sales Performance Dashboard",
-        description: "Developed an interactive Power BI dashboard integrating CRM and ERP data for a phone repair shop. Reduced manual reporting time by 70% using DAX and Power Query."
+        image: "https://placehold.co/400x200/0f172a/60a5fa?text=AI+Database",
+        title: "AI-Powered Visual-Linguistic Database Interface",
+        description: "Developed a multimodal application using OpenCV and Natural Language Processing (NLP) to query a PostgreSQL database conversationally. Built an NL2SQL agent using an LLM (e.g., fine-tuned BERT/GPT) that achieved 90% accuracy in translating complex human prompts into executable SQL queries. Integrated OpenCV to extract visual context (e.g., charts, fields) from the user's environment, injecting this metadata into the LLM prompt. The context-aware retrieval mechanism improved query specificity by 15% by effectively reducing LLM hallucination and search space."
     },
     {
         id: 4,
@@ -398,7 +398,7 @@ const Experience = ({ experiences }) => {
                 <h2>Experience</h2>
                 <div className="experience-timeline">
                     {experiences.map((exp, index) => (
-                        <Card key={exp.id} className={`experience-card card-animate ${inView ? 'is-inView' : ''}`} style={{ transitionDelay: `${index * 0.15}s` }}>
+                        <Card key={exp.id} className={`experience-card card-animate group hover:scale-105 transition-all duration-300 ${inView ? 'is-inView' : ''}`} style={{ transitionDelay: `${index * 0.15}s` }}>
                             <CardHeader>
                                 <div className="experience-header">
                                     <div>
