@@ -26,9 +26,9 @@ const projectsData = [
     },
     {
         id: 3,
-        image: "https://placehold.co/400x200/0f172a/60a5fa?text=Chatbot",
-        title: "Conversational Chatbot",
-        description: "Created a context-aware chatbot using Python and OpenAI's NLP capabilities to enhance automated interactions with intelligent natural language understanding."
+        image: "https://placehold.co/400x200/0f172a/60a5fa?text=Power+BI",
+        title: "Athlete Performance Dashboard",
+        description: "Created an interactive Power BI dashboard reducing manual reporting time by 70% at UAB Sport Science. Utilized DAX and Power Query to design comprehensive data visualizations for performance tracking and decision support across multiple teams and sports."
     }
 ];
 
