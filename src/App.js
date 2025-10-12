@@ -19,27 +19,16 @@ const projectsData = [
     },
     {
         id: 2,
-        image: "lipnet.jpg",
-        title: "Lip Movement to Text Conversion",
-        description: "Designed a neural network model using deep learning to translate lip movements into text for non-verbal communication and speech recognition applications."
+        image: "https://placehold.co/400x200/0f172a/60a5fa?text=AI+Database",
+        title: "RAG SQL Chatbot - AI Database Interface",
+        description: "Developed a comprehensive RAG (Retrieval Augmented Generation) project featuring natural language database querying, CSV import automation, and PDF document chat interface. Built an NL2SQL agent using LangChain and OpenAI that translates natural language prompts into executable SQL queries. Features include ChatDB for MySQL queries, CSV to database importer, and PDF chat assistant with FAISS vector store for semantic search.",
+        link: "https://github.com/Harshith-varma-afk/Rag_proj.git"
     },
     {
         id: 3,
-        image: "https://placehold.co/400x200/0f172a/60a5fa?text=AI+Database",
-        title: "AI-Powered Visual-Linguistic Database Interface",
-        description: "Developed a multimodal application using OpenCV and Natural Language Processing (NLP) to query a PostgreSQL database conversationally. Built an NL2SQL agent using an LLM (e.g., fine-tuned BERT/GPT) that achieved 90% accuracy in translating complex human prompts into executable SQL queries. Integrated OpenCV to extract visual context (e.g., charts, fields) from the user's environment, injecting this metadata into the LLM prompt. The context-aware retrieval mechanism improved query specificity by 15% by effectively reducing LLM hallucination and search space."
-    },
-    {
-        id: 4,
         image: "https://placehold.co/400x200/0f172a/60a5fa?text=Chatbot",
         title: "Conversational Chatbot",
         description: "Created a context-aware chatbot using Python and OpenAI's NLP capabilities to enhance automated interactions with intelligent natural language understanding."
-    },
-    {
-        id: 5,
-        image: "https://placehold.co/400x200/0f172a/60a5fa?text=Financial+Analytics",
-        title: "Financial Data Analysis Dashboards",
-        description: "Developed Power BI dashboards for financial performance tracking and investment analysis. Automated data pipelines with API integrations for continuous data refresh."
     }
 ];
 
@@ -157,7 +146,7 @@ const dynamicTexts = [
 ];
 
 const statsData = [
-    { label: "Projects Completed", value: 5, suffix: "+" },
+    { label: "Projects Completed", value: 3, suffix: "+" },
     { label: "Certifications", value: 4, suffix: "" },
     { label: "Internships", value: 2, suffix: "" },
     { label: "GPA", value: 3.88, suffix: "/4.0" }
@@ -544,9 +533,17 @@ const ProjectCard = ({ project }) => {
             </CardHeader>
             <CardContent>
                 <p className="text-sm text-muted-foreground mb-4">{project.description}</p>
-                <Button variant="outline" size="sm" className="w-full">
-                    View Project &rarr;
-                </Button>
+                {project.link ? (
+                    <Button variant="outline" size="sm" className="w-full" asChild>
+                        <a href={project.link} target="_blank" rel="noopener noreferrer">
+                            View on GitHub &rarr;
+                        </a>
+                    </Button>
+                ) : (
+                    <Button variant="outline" size="sm" className="w-full">
+                        View Project &rarr;
+                    </Button>
+                )}
             </CardContent>
         </Card>
     );
