@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './com
 import { Input } from './components/ui/input';
 import { Badge } from './components/ui/badge';
 import { Progress } from './components/ui/progress';
-import { ChevronUp, Mail, Download, Code, Database, Cpu, Globe, Briefcase } from 'lucide-react';
+import { ChevronUp, Mail, Download, Code, Database, Cpu, Globe, Briefcase, Sun, Moon } from 'lucide-react';
 import './App.css';
 
 // --- Data Definitions ---
@@ -154,7 +154,7 @@ const statsData = [
 
 // --- Components ---
 
-const Navbar = ({ smoothScroll }) => {
+const Navbar = ({ smoothScroll, theme, toggleTheme }) => {
     const [isScrolled, setIsScrolled] = useState(false);
 
     useEffect(() => {
@@ -185,6 +185,15 @@ const Navbar = ({ smoothScroll }) => {
                     <Button variant="ghost" size="sm" onClick={() => smoothScroll('#contact')}>
                         <Mail className="w-4 h-4 mr-2" />
                         Contact
+                    </Button>
+                    <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        onClick={toggleTheme}
+                        title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                        className="ml-2"
+                    >
+                        {theme === 'dark' ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
                     </Button>
                 </div>
             </div>
@@ -755,8 +764,21 @@ const FloatingActionButton = () => {
 };
 
 const App = () => {
+    const [theme, setTheme] = useState(() => {
+        // Get theme from localStorage or default to 'light'
+        const savedTheme = localStorage.getItem('theme');
+        return savedTheme || 'light';
+    });
+
     useEffect(() => {
-        document.body.setAttribute('data-theme', 'dark');
+        // Apply theme to document body
+        document.body.setAttribute('data-theme', theme);
+        // Save theme to localStorage
+        localStorage.setItem('theme', theme);
+    }, [theme]);
+
+    const toggleTheme = useCallback(() => {
+        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
     }, []);
 
     const smoothScroll = useCallback((id) => {
@@ -770,7 +792,7 @@ const App = () => {
 
     return (
         <>
-            <Navbar smoothScroll={smoothScroll} />
+            <Navbar smoothScroll={smoothScroll} theme={theme} toggleTheme={toggleTheme} />
             <Hero smoothScroll={smoothScroll} />
             <Stats stats={statsData} />
             <Experience experiences={experienceData} />

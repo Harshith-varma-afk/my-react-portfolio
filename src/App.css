@@ -180,6 +180,20 @@ body[data-theme="dark"] .theme-toggle:hover {
     background-color: var(--primary-color-dark);
 }
 
+/* Theme toggle button smooth icon transition */
+.navbar-nav button[title*="Switch"] {
+    position: relative;
+    overflow: hidden;
+}
+
+.navbar-nav button[title*="Switch"] svg {
+    transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.navbar-nav button[title*="Switch"]:hover svg {
+    transform: rotate(20deg) scale(1.1);
+}
+
 /* --- Hero Section Styles --- */
 .hero {
     display: flex;
