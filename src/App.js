@@ -19,7 +19,7 @@ const projectsData = [
     },
     {
         id: 2,
-        image: "https://placehold.co/400x200/0f172a/60a5fa?text=AI+Database",
+        image: "sql.jpg",
         title: "RAG SQL Chatbot - AI Database Interface",
         description: "Developed a comprehensive RAG (Retrieval Augmented Generation) project featuring natural language database querying, CSV import automation, and PDF document chat interface. Built an NL2SQL agent using LangChain and OpenAI that translates natural language prompts into executable SQL queries. Features include ChatDB for MySQL queries, CSV to database importer, and PDF chat assistant with FAISS vector store for semantic search.",
         link: "https://github.com/Harshith-varma-afk/Rag_proj.git"
