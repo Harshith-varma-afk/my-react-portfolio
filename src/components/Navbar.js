@@ -25,7 +25,7 @@ const Navbar = ({ smoothScroll, theme, toggleTheme }) => {
                     <Button variant="ghost" size="sm" onClick={() => smoothScroll('#skills')}>Skills</Button>
                     <Button variant="ghost" size="sm" onClick={() => smoothScroll('#projects')}>Projects</Button>
                     <Button variant="outline" size="sm" asChild>
-                        <a href="resume.pdf" download="Harshith_Varma_Resume.pdf">
+                        <a href="resume.pdf" download="Harshith_AI_Data_Resume.pdf">
                             <Download className="w-4 h-4 mr-2" />
                             Resume
                         </a>
