@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from './ui/button';
 import { ChevronUp } from 'lucide-react';
 
 const FloatingActionButton = () => {
@@ -7,11 +6,7 @@ const FloatingActionButton = () => {
 
     useEffect(() => {
         const toggleVisibility = () => {
-            if (window.pageYOffset > 300) {
-                setIsVisible(true);
-            } else {
-                setIsVisible(false);
-            }
+            setIsVisible(window.pageYOffset > 400);
         };
 
         window.addEventListener('scroll', toggleVisibility);
@@ -25,20 +20,17 @@ const FloatingActionButton = () => {
         });
     };
 
+    if (!isVisible) return null;
+
     return (
-        <>
-            {isVisible && (
-                <Button 
-                    variant="glow" 
-                    size="icon" 
-                    className="floating-btn" 
-                    onClick={scrollToTop} 
-                    title="Back to Top"
-                >
-                    <ChevronUp className="w-5 h-5" />
-                </Button>
-            )}
-        </>
+        <button
+            className="floating-btn"
+            onClick={scrollToTop}
+            title="Back to Top"
+            aria-label="Scroll to top"
+        >
+            <ChevronUp style={{ width: '20px', height: '20px' }} />
+        </button>
     );
 };
 

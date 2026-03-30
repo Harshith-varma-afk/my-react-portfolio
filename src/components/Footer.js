@@ -1,8 +1,14 @@
 import React from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const Footer = () => {
+    const { ref, inView } = useInView({
+        triggerOnce: true,
+        threshold: 0.1,
+    });
+
     return (
-        <footer>
+        <footer ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-section">
@@ -11,7 +17,9 @@ const Footer = () => {
                     </div>
                     <div className="footer-section">
                         <div className="footer-links">
-                            <a href="mailto:harshithvarmarudraraju419@gmail.com" className="footer-link">harshithvarmarudraraju419@gmail.com</a>
+                            <a href="mailto:harshithvarmarudraraju419@gmail.com" className="footer-link">
+                                harshithvarmarudraraju419@gmail.com
+                            </a>
                             <span className="footer-divider">•</span>
                             <a href="tel:+12055868488" className="footer-link">+1 (205) 586-8488</a>
                         </div>
