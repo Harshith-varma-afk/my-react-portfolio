@@ -1,56 +1,57 @@
-import React from 'react';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from './ui/card';
 import { Button } from './ui/button';
-
-const CertificationCard = ({ cert, index }) => {
-    const { ref, inView } = useInView({
-        triggerOnce: true,
-        threshold: 0.15,
-    });
-
-    return (
-        <Card
-            ref={ref}
-            className={`certification-card card-animate ${inView ? 'is-inView' : ''}`}
-            style={{ transitionDelay: `${index * 0.12 + 0.1}s` }}
-        >
-            <CardHeader>
-                <CardTitle style={{ fontSize: '1.25rem' }}>{cert.title}</CardTitle>
-                <CardDescription style={{ fontWeight: 600, color: 'hsl(var(--primary))' }}>
-                    {cert.issuer}
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <p style={{ fontSize: '0.875rem', color: 'hsl(var(--muted-foreground))', marginBottom: '1rem', lineHeight: 1.6 }}>
-                    {cert.description}
-                </p>
-                {cert.link && cert.link !== "#" && (
-                    <Button variant="outline" size="sm" asChild>
-                        <a href={cert.link} target="_blank" rel="noopener noreferrer">
-                            View Certificate &rarr;
-                        </a>
-                    </Button>
-                )}
-            </CardContent>
-        </Card>
-    );
-};
+import { animateCards } from '../lib/animations';
 
 const Certifications = ({ certifications }) => {
-    const { ref, inView } = useInView({
-        triggerOnce: true,
-        threshold: 0.05,
-    });
+    const gridRef = useRef(null);
+
+    useEffect(() => {
+        if (gridRef.current) {
+            animateCards(gridRef.current, '.certification-card', {
+                y: 50,
+                stagger: 0.12,
+                duration: 0.7,
+                ease: 'back.out(1.2)',
+            });
+        }
+    }, []);
 
     return (
-        <section id="certifications" ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
+        <section id="certifications">
             <div className="container">
                 <span className="section-subtitle">Credentials</span>
                 <h2>Certifications</h2>
-                <div className="certifications-grid">
-                    {certifications.map((cert, index) => (
-                        <CertificationCard key={cert.id} cert={cert} index={index} />
+                <div className="certifications-grid" ref={gridRef}>
+                    {certifications.map(cert => (
+                        <Card key={cert.id} className="certification-card" style={{ opacity: 0 }}>
+                            <CardHeader>
+                                <CardTitle style={{ fontSize: '1.25rem' }}>{cert.title}</CardTitle>
+                                <CardDescription style={{
+                                    fontWeight: 600,
+                                    color: 'hsl(var(--primary))'
+                                }}>
+                                    {cert.issuer}
+                                </CardDescription>
+                            </CardHeader>
+                            <CardContent>
+                                <p style={{
+                                    fontSize: '0.875rem',
+                                    color: 'hsl(var(--muted-foreground))',
+                                    marginBottom: '1rem',
+                                    lineHeight: 1.6
+                                }}>
+                                    {cert.description}
+                                </p>
+                                {cert.link && cert.link !== "#" && (
+                                    <Button variant="outline" size="sm" asChild>
+                                        <a href={cert.link} target="_blank" rel="noopener noreferrer">
+                                            View Certificate &rarr;
+                                        </a>
+                                    </Button>
+                                )}
+                            </CardContent>
+                        </Card>
                     ))}
                 </div>
             </div>

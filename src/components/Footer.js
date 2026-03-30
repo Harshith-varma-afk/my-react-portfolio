@@ -1,14 +1,17 @@
-import React from 'react';
-import { useInView } from 'react-intersection-observer';
+import React, { useEffect, useRef } from 'react';
+import { animateSection } from '../lib/animations';
 
 const Footer = () => {
-    const { ref, inView } = useInView({
-        triggerOnce: true,
-        threshold: 0.1,
-    });
+    const footerRef = useRef(null);
+
+    useEffect(() => {
+        if (footerRef.current) {
+            animateSection(footerRef.current);
+        }
+    }, []);
 
     return (
-        <footer ref={ref} className={`section-animate ${inView ? 'is-inView' : ''}`}>
+        <footer ref={footerRef} style={{ opacity: 0 }}>
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-section">

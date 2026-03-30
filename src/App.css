@@ -429,7 +429,6 @@ body::after {
     background: hsl(var(--primary) / 0.35);
     top: -10%;
     left: -10%;
-    animation: orbFloat1 20s ease-in-out infinite;
 }
 
 .hero-orb-2 {
@@ -438,7 +437,6 @@ body::after {
     background: hsl(var(--accent) / 0.3);
     bottom: -15%;
     right: -5%;
-    animation: orbFloat2 25s ease-in-out infinite;
 }
 
 .hero-orb-3 {
@@ -447,26 +445,6 @@ body::after {
     background: hsl(var(--glow-cyan) / 0.2);
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    animation: orbFloat3 18s ease-in-out infinite;
-}
-
-@keyframes orbFloat1 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    25% { transform: translate(80px, 60px) scale(1.1); }
-    50% { transform: translate(40px, -40px) scale(0.95); }
-    75% { transform: translate(-30px, 30px) scale(1.05); }
-}
-
-@keyframes orbFloat2 {
-    0%, 100% { transform: translate(0, 0) scale(1); }
-    33% { transform: translate(-60px, -50px) scale(1.08); }
-    66% { transform: translate(30px, 40px) scale(0.92); }
-}
-
-@keyframes orbFloat3 {
-    0%, 100% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-40%, -60%) scale(1.15); }
 }
 
 /* Grid pattern overlay */
@@ -555,9 +533,6 @@ body::after {
     font-size: 0.3em;
     letter-spacing: 0.15em;
     text-transform: uppercase;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
 }
 
 .hero .name {
@@ -567,37 +542,25 @@ body::after {
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 900;
-    opacity: 0;
-    transform: translateY(30px);
-    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards,
-               gradientShift 8s ease-in-out infinite 1.3s;
     position: relative;
+    animation: gradientShift 8s ease-in-out infinite;
 }
 
-/* Animated underline on name */
-.hero .name::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
+/* Underline under name — GSAP controls scaleX */
+.name-underline {
+    display: block;
+    width: 100%;
     height: 3px;
     background: linear-gradient(90deg, hsl(var(--primary)), hsl(var(--accent)), hsl(var(--glow-cyan)));
     border-radius: 2px;
-    animation: drawUnderline 1.2s cubic-bezier(0.16, 1, 0.3, 1) 1s forwards;
-}
-
-@keyframes textReveal {
-    to { opacity: 1; transform: translateY(0); }
+    margin-top: 4px;
+    transform-origin: left center;
+    transform: scaleX(0);
 }
 
 @keyframes gradientShift {
     0%, 100% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
-}
-
-@keyframes drawUnderline {
-    to { width: 100%; }
 }
 
 .hero p {
@@ -613,9 +576,6 @@ body::after {
     color: hsl(var(--muted-foreground));
     max-width: 42rem;
     line-height: 1.7;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.9s forwards;
 }
 
 .dynamic-text {
@@ -627,8 +587,6 @@ body::after {
     color: hsl(var(--primary));
     position: relative;
     display: inline-block;
-    opacity: 0;
-    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
 }
 
 .cursor {
@@ -650,9 +608,6 @@ body::after {
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 2.5rem;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: textReveal 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.1s forwards;
 }
 
 /* Scroll chevron */
@@ -662,8 +617,6 @@ body::after {
     left: 50%;
     transform: translateX(-50%);
     z-index: 3;
-    opacity: 0;
-    animation: textReveal 0.8s ease 2s forwards;
 }
 
 .scroll-chevron {
@@ -835,9 +788,8 @@ section h2::after {
     text-align: left;
 }
 
-/* Vertical timeline line */
-.experience-timeline::before {
-    content: '';
+/* Vertical timeline line — GSAP controls scaleY */
+.timeline-line {
     position: absolute;
     left: 24px;
     top: 0;
@@ -845,6 +797,7 @@ section h2::after {
     width: 2px;
     background: linear-gradient(180deg, hsl(var(--primary)), hsl(var(--accent)), transparent);
     border-radius: 1px;
+    transform-origin: top center;
 }
 
 .experience-card {

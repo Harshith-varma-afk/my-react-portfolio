@@ -1,10 +1,12 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Download, Mail, Sun, Moon } from 'lucide-react';
 import { Button } from './ui/button';
+import { animateNavbar } from '../lib/animations';
 
 const Navbar = ({ smoothScroll, theme, toggleTheme }) => {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isMobileOpen, setIsMobileOpen] = useState(false);
+    const navRef = useRef(null);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -14,24 +16,25 @@ const Navbar = ({ smoothScroll, theme, toggleTheme }) => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    // GSAP navbar hide/show on scroll
+    useEffect(() => {
+        if (navRef.current) {
+            animateNavbar(navRef.current);
+        }
+    }, []);
+
     // Close mobile menu on resize
     useEffect(() => {
         const handleResize = () => {
-            if (window.innerWidth > 768) {
-                setIsMobileOpen(false);
-            }
+            if (window.innerWidth > 768) setIsMobileOpen(false);
         };
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // Lock body scroll when mobile menu is open
+    // Lock body scroll when mobile menu open
     useEffect(() => {
-        if (isMobileOpen) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = '';
-        }
+        document.body.style.overflow = isMobileOpen ? 'hidden' : '';
         return () => { document.body.style.overflow = ''; };
     }, [isMobileOpen]);
 
@@ -40,29 +43,21 @@ const Navbar = ({ smoothScroll, theme, toggleTheme }) => {
         setIsMobileOpen(false);
     }, [smoothScroll]);
 
-    const toggleMobile = useCallback(() => {
-        setIsMobileOpen(prev => !prev);
-    }, []);
-
     return (
-        <nav className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
+        <nav ref={navRef} className={`navbar ${isScrolled ? 'scrolled' : ''}`}>
             <div className="container">
                 <div className="logo">
                     <span className="logo-text">Harshith Varma</span>
                 </div>
 
-                {/* Hamburger button */}
                 <button
                     className={`hamburger ${isMobileOpen ? 'active' : ''}`}
-                    onClick={toggleMobile}
+                    onClick={() => setIsMobileOpen(prev => !prev)}
                     aria-label="Toggle navigation menu"
                 >
-                    <span />
-                    <span />
-                    <span />
+                    <span /><span /><span />
                 </button>
 
-                {/* Mobile overlay */}
                 <div
                     className={`mobile-overlay ${isMobileOpen ? 'active' : ''}`}
                     onClick={() => setIsMobileOpen(false)}
