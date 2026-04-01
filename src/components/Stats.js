@@ -1,22 +1,27 @@
 import React, { useEffect, useRef } from 'react';
 import { Card, CardContent } from './ui/card';
-import { animateCards, animateStatCounter } from '../lib/animations';
+import { animateCards, animateStatCounter, add3DTiltEffect } from '../lib/animations';
 
 const Stats = ({ stats }) => {
     const sectionRef = useRef(null);
     const gridRef = useRef(null);
     const numberRefs = useRef([]);
+    const cardRefs = useRef([]);
 
     useEffect(() => {
-        // Staggered card entrance
+        // Staggered card entrance with 3D rotation
         if (gridRef.current) {
             animateCards(gridRef.current, '.stat-card', {
-                y: 50,
+                y: 60,
                 stagger: 0.1,
-                duration: 0.7,
+                duration: 0.8,
                 ease: 'back.out(1.4)',
             });
         }
+
+        // 3D tilt effect on stat cards
+        const cardEls = cardRefs.current.filter(Boolean);
+        const tiltCleanups = add3DTiltEffect(cardEls);
 
         // Animated counters
         stats.forEach((stat, i) => {
@@ -30,6 +35,10 @@ const Stats = ({ stats }) => {
                 );
             }
         });
+
+        return () => {
+            tiltCleanups.forEach(fn => fn && fn());
+        };
     }, [stats]);
 
     return (
@@ -39,7 +48,11 @@ const Stats = ({ stats }) => {
                 <h2>My Achievements</h2>
                 <div className="stats-grid" ref={gridRef}>
                     {stats.map((stat, index) => (
-                        <Card key={index} className="stat-card">
+                        <Card
+                            key={index}
+                            className="stat-card"
+                            ref={el => cardRefs.current[index] = el}
+                        >
                             <CardContent style={{ padding: '2rem 1.5rem', textAlign: 'center' }}>
                                 <div
                                     className="stat-number"

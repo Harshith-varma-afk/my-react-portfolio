@@ -2,30 +2,41 @@ import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
 import { Progress } from './ui/progress';
-import { animateCards, animateProgressBars } from '../lib/animations';
+import { animateCards, animateProgressBars, add3DTiltEffect } from '../lib/animations';
 
 const Skills = ({ skills }) => {
     const sectionRef = useRef(null);
     const gridRef = useRef(null);
+    const cardRefs = useRef([]);
 
     useEffect(() => {
-        // Staggered card reveal
+        // Staggered card reveal with 3D rotation
         if (gridRef.current) {
             animateCards(gridRef.current, '.skill-category', {
-                y: 50,
+                y: 60,
                 stagger: 0.1,
-                duration: 0.7,
+                duration: 0.8,
             });
         }
 
-        // Fill progress bars
+        // 3D tilt on skill category cards
+        const cardEls = cardRefs.current.filter(Boolean);
+        const tiltCleanups = add3DTiltEffect(cardEls);
+
+        // Fill progress bars with delay
         if (gridRef.current) {
-            // Small delay to let cards appear first
             const timer = setTimeout(() => {
                 animateProgressBars(gridRef.current);
-            }, 200);
-            return () => clearTimeout(timer);
+            }, 300);
+            return () => {
+                clearTimeout(timer);
+                tiltCleanups.forEach(fn => fn && fn());
+            };
         }
+
+        return () => {
+            tiltCleanups.forEach(fn => fn && fn());
+        };
     }, []);
 
     return (
@@ -40,6 +51,7 @@ const Skills = ({ skills }) => {
                             key={index}
                             className="skill-category"
                             style={{ opacity: 0 }}
+                            ref={el => cardRefs.current[index] = el}
                         >
                             <CardHeader style={{ paddingBottom: '0.75rem' }}>
                                 <CardTitle style={{
