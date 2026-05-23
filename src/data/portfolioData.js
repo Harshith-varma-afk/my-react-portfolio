@@ -114,37 +114,67 @@ export const projectsData = [
     },
 ];
 
-/** Curated stacks only — percentages removed in UI */
+/**
+ * Stack groups mirrored from Meghashyam Adimallam’s `#stack` section.
+ * Reference: https://www.meghashyamadimallam.com/#stack — edit anytime to reflect your résumé.
+ */
 export const skillsData = [
     {
-        category: 'Languages',
-        items: ['Python', 'SQL', 'R', 'NumPy · Pandas'],
-        icon: <Code className="w-5 h-5" />,
-    },
-    {
-        category: 'ML · DL',
-        items: ['PyTorch', 'scikit-learn', 'XGBoost / LightGBM', 'Hugging Face · LoRA'],
-        icon: <Cpu className="w-5 h-5" />,
-    },
-    {
-        category: 'LLM · RAG',
-        items: ['LangChain', 'LlamaIndex', 'OpenAI · Anthropic', 'FAISS · Chroma'],
+        category: 'AI / LLM Systems',
+        items: [
+            'LLMs',
+            'RAG',
+            'LangChain',
+            'LangGraph',
+            'Prompt Engineering',
+            'vLLM',
+            'TensorRT-LLM',
+            'Hugging Face',
+            'AI Agents',
+        ],
         icon: <Database className="w-5 h-5" />,
     },
     {
-        category: 'Vision · NLP',
-        items: ['YOLOv8', 'SAM', 'OpenCV', 'BERT / encoder models'],
+        category: 'Machine Learning',
+        items: [
+            'PyTorch',
+            'Scikit-learn',
+            'NLP',
+            'Computer Vision',
+            'BERT',
+            'YOLO',
+            'Model Optimization',
+        ],
+        icon: <Cpu className="w-5 h-5" />,
+    },
+    {
+        category: 'Data Science & Analytics',
+        items: ['NumPy', 'Pandas', 'Matplotlib', 'Scikit-Learn', 'Power BI', 'Tableau'],
+        icon: <BarChart3 className="w-5 h-5" />,
+    },
+    {
+        category: 'Backend & Deployment',
+        items: [
+            'FastAPI',
+            'Flask',
+            'Docker',
+            'Kubernetes',
+            'REST APIs',
+            'AWS',
+            'GCP',
+            'CI/CD',
+        ],
         icon: <Globe className="w-5 h-5" />,
     },
     {
-        category: 'MLOps · cloud',
-        items: ['Docker', 'AWS · SageMaker', 'GitHub Actions', 'Evidently · MLflow'],
+        category: 'Data & Infrastructure',
+        items: ['Python', 'SQL', 'Kafka', 'ETL', 'CUDA', 'Git'],
         icon: <Briefcase className="w-5 h-5" />,
     },
     {
-        category: 'Data · Viz',
-        items: ['PostgreSQL', 'Power BI · Tableau', 'Streamlit', 'EDA pipelines'],
-        icon: <BarChart3 className="w-5 h-5" />,
+        category: 'Tooling & Collaboration',
+        items: ['Jupyter', 'VS Code', 'GitHub Actions', 'MLflow', 'Weights & Biases'],
+        icon: <Code className="w-5 h-5" />,
     },
 ];
 

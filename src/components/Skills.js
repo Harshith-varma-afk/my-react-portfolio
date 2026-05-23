@@ -22,7 +22,9 @@ const Skills = ({ skills }) => {
                 <span className="section-kicker mono">{'\u002f\u002f 05 — STACK'}</span>
                 <h2>Technical stack</h2>
                 <p className="section-description">
-                    A tightened snapshot of tooling I rely on daily—groups mirror the résumé without noisy lists.
+                    Six-category stack spanning LLMs, modeling, analytics, backends, infra, and collaboration tooling. Edit{' '}
+                    <span className="mono" style={{ fontSize: '0.85em', color: 'hsl(var(--muted-foreground))' }}>skillsData</span>{' '}
+                    in portfolioData.js so every chip matches what you&apos;ve shipped.
                 </p>
                 <div className="skills-grid skills-grid-compact" ref={gridRef}>
                     {skills.map(category => (
