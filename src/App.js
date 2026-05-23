@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
@@ -21,16 +21,12 @@ import {
 import './App.css';
 
 const App = () => {
-    const [theme, setTheme] = useState(() => {
-        const savedTheme = localStorage.getItem('theme');
-        return savedTheme || 'light';
-    });
     const hasInitialized = useRef(false);
 
     useEffect(() => {
-        document.body.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-    }, [theme]);
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    }, []);
 
     // Global GSAP effects — run once on mount
     useEffect(() => {
@@ -58,10 +54,6 @@ const App = () => {
         };
     }, []);
 
-    const toggleTheme = useCallback(() => {
-        setTheme(prevTheme => prevTheme === 'dark' ? 'light' : 'dark');
-    }, []);
-
     const smoothScroll = useCallback((id) => {
         const element = document.querySelector(id);
         if (element) {
@@ -73,7 +65,8 @@ const App = () => {
 
     return (
         <>
-            <Navbar smoothScroll={smoothScroll} theme={theme} toggleTheme={toggleTheme} />
+            <div className="neo-scroll-rail" aria-hidden="true" />
+            <Navbar smoothScroll={smoothScroll} />
             <Hero smoothScroll={smoothScroll} />
             <Stats stats={statsData} />
             <Experience experiences={experienceData} />

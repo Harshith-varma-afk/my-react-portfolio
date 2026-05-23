@@ -194,7 +194,7 @@ export function animateOrbs(orbElements) {
 // ═══════════════════════════════════════════════════════════════════
 
 export function animateSectionHeadings() {
-    const subtitles = document.querySelectorAll('.section-subtitle');
+    const subtitles = document.querySelectorAll('.section-kicker, .section-subtitle');
     const h2s = document.querySelectorAll('section h2');
     const descriptions = document.querySelectorAll('.section-description');
 

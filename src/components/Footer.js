@@ -15,8 +15,8 @@ const Footer = () => {
             <div className="container">
                 <div className="footer-content">
                     <div className="footer-section">
-                        <h3 className="footer-brand">Harshith Varma</h3>
-                        <p className="footer-tagline">Data Science • AI Engineering • Analytics</p>
+                        <h3 className="footer-brand">Harshith Varma Rudraraju</h3>
+                        <p className="footer-tagline">AI/ML Engineer · LLM systems & agentic AI · DL/NLP · MLOps & scalable inference</p>
                     </div>
                     <div className="footer-section">
                         <div className="footer-links">
@@ -29,7 +29,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className="footer-bottom">
-                    <p>&copy; {new Date().getFullYear()} Harshith Varma. All rights reserved.</p>
+                    <p>&copy; {new Date().getFullYear()} Harshith Varma Rudraraju. All rights reserved.</p>
                 </div>
             </div>
         </footer>

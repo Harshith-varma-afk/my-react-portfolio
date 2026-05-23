@@ -136,6 +136,10 @@ const Hero = ({ smoothScroll }) => {
 
             <div className="container">
                 <div className="hero-content">
+                    <p className="hero-kicker mono" ref={greetingRef} style={{ opacity: 0 }}>
+                        {'\u002f\u002f 01 — PROFILE '}
+                        <span className="hero-slash-role"> / MS DS · AI ENG</span>
+                    </p>
                     <div className="hero-image-container" ref={imageRef} style={{ opacity: 0 }}>
                         <img
                             src="prof.jpg"
@@ -143,12 +147,12 @@ const Hero = ({ smoothScroll }) => {
                             className="hero-img"
                             onError={(e) => {
                                 e.target.onerror = null;
-                                e.target.src = "https://placehold.co/180x180/0a0a1a/5b8af7?text=HV";
+                                e.target.src = "https://placehold.co/180x180/071018/2ee6d6?text=HV";
                             }}
                         />
                     </div>
                     <h1>
-                        <span className="greeting" ref={greetingRef} style={{ opacity: 0 }}>Hi, I'm</span>
+                        <span className="greeting">Hi, I'm</span>
                         <span className="name" ref={nameRef} style={{ opacity: 0 }}>
                             Harshith Varma
                             <span className="name-underline" ref={underlineRef} />
@@ -159,7 +163,9 @@ const Hero = ({ smoothScroll }) => {
                         <span className="cursor">|</span>
                     </p>
                     <p className="hero-description" ref={descriptionRef} style={{ opacity: 0 }}>
-                        MS Data Science Student at UAB | AI & Analytics Enthusiast
+                        MS Data Science @ UAB (GPA 3.66 · coursework: Deep Learning, NLP, probabilistic ML) —
+                        summarizing messy signal into{' '}
+                        <span className="hero-highlight-italic">LLM systems, agentic AI &amp; scalable inference.</span>
                     </p>
                     <div className="hero-buttons" ref={buttonsRef} style={{ opacity: 0 }}>
                         <div ref={viewWorkBtnRef}>

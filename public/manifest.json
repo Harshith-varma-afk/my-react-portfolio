@@ -1,6 +1,6 @@
 {
-  "short_name": "HV Portfolio",
-  "name": "Harshith's Portfolio",
+  "short_name": "Harshith V",
+  "name": "Harshith Varma Rudraraju — Portfolio",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#070b14",
+  "background_color": "#070b14"
 }

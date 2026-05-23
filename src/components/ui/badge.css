@@ -51,7 +51,8 @@
 
 .badge-outline {
   color: hsl(var(--foreground));
-  border-color: hsl(var(--border));
+  border-color: hsl(var(--primary) / 0.35);
+  background: hsl(var(--primary) / 0.05);
 }
 
 .badge-gradient {

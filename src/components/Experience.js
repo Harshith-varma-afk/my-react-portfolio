@@ -24,9 +24,11 @@ const Experience = ({ experiences }) => {
     return (
         <section id="experience" ref={sectionRef}>
             <div className="container">
-                <span className="section-subtitle">Career</span>
+                <span className="section-kicker mono">{'\u002f\u002f 03 — EXPERIENCE'}</span>
                 <h2>Experience</h2>
-                <p className="section-description">My professional journey in AI, ML, and data science.</p>
+                <p className="section-description">
+                    Finance-grade RAG, collegiate athletics analytics, and India-based LLM product engineering—ordered newest first.
+                </p>
                 <div className="experience-timeline" ref={timelineRef}>
                     {/* Animated timeline line */}
                     <div

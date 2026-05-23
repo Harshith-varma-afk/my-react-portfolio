@@ -44,7 +44,7 @@ const Stats = ({ stats }) => {
     return (
         <section id="stats" ref={sectionRef}>
             <div className="container">
-                <span className="section-subtitle">Highlights</span>
+                <span className="section-kicker mono">{'\u002f\u002f 02 — STATS'}</span>
                 <h2>My Achievements</h2>
                 <div className="stats-grid" ref={gridRef}>
                     {stats.map((stat, index) => (

@@ -1,94 +1,136 @@
 import React, { useEffect, useRef } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
-import { Button } from './ui/button';
-import { createHorizontalScroll, add3DTiltEffect, ScrollTrigger } from '../lib/animations';
+import { cn } from '../lib/utils';
+import { add3DTiltEffect, ScrollTrigger } from '../lib/animations';
+
+/** Full-width neo glass featured layout for each project entry. */
+const FeaturedProjectCard = ({ project, cardRef, flipLayout }) => {
+    const p = project;
+    const hasBullets =
+        Array.isArray(p.bulletsLeft) &&
+        Array.isArray(p.bulletsRight) &&
+        (p.bulletsLeft.length > 0 || p.bulletsRight.length > 0);
+
+    return (
+        <div
+            ref={cardRef}
+            className={cn(
+                'project-featured neo-glass-heavy',
+                flipLayout && 'project-featured--flip'
+            )}
+        >
+            <div className="project-featured-visual neo-mesh-pane">
+                <img
+                    src={p.image}
+                    alt=""
+                    className="project-featured-img"
+                    onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = `https://placehold.co/640x420/071018/2ee6d6?text=${encodeURIComponent(p.title.slice(0, 12))}`;
+                    }}
+                />
+            </div>
+            <div className="project-featured-body">
+                {Array.isArray(p.tags) && p.tags.length > 0 && (
+                    <div className="neo-pill-row">
+                        {p.tags.map(tag => (
+                            <span key={tag} className="neo-pill-tag">
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
+                <h3 className="project-featured-title">{p.title}</h3>
+                <p className="project-featured-lead">{p.description}</p>
+                {hasBullets && (
+                    <div className="project-featured-bullets">
+                        <ul>
+                            {(p.bulletsLeft || []).map((item, i) => (
+                                <li key={`l-${p.id}-${i}`}>{item}</li>
+                            ))}
+                        </ul>
+                        <ul>
+                            {(p.bulletsRight || []).map((item, i) => (
+                                <li key={`r-${p.id}-${i}`}>{item}</li>
+                            ))}
+                        </ul>
+                    </div>
+                )}
+                {Array.isArray(p.metrics) && p.metrics.length > 0 && (
+                    <div className="neo-metric-row">
+                        {p.metrics.map(m => (
+                            <div key={m.label} className="neo-metric-chip">
+                                <span className="neo-metric-label">{m.label}</span>
+                                <span className="neo-metric-value">{m.value}</span>
+                            </div>
+                        ))}
+                    </div>
+                )}
+                {p.link ? (
+                    <a
+                        href={p.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cn(
+                            'btn-component btn-outline btn-sm',
+                            'project-featured-cta'
+                        )}
+                    >
+                        {(typeof p.link === 'string' && p.link.includes('github.com'))
+                            ? 'View on GitHub '
+                            : 'View deployment '}
+                        &rarr;
+                    </a>
+                ) : null}
+            </div>
+        </div>
+    );
+};
 
 const Projects = ({ projects }) => {
     const sectionRef = useRef(null);
-    const wrapperRef = useRef(null);
     const cardsRef = useRef([]);
 
     useEffect(() => {
-        if (!sectionRef.current || !wrapperRef.current) return;
+        let dispose = [];
 
-        // Only use horizontal scroll on desktop (>= 1024px)
-        let scrollInstance = null;
-        const isDesktop = window.innerWidth >= 1024;
+        let cancelled = false;
+        const rafId = requestAnimationFrame(() => {
+            if (cancelled) return;
+            dispose = add3DTiltEffect(cardsRef.current.filter(Boolean));
+        });
 
-        if (isDesktop) {
-            scrollInstance = createHorizontalScroll(sectionRef.current, wrapperRef.current);
-        }
-
-        // 3D tilt on project cards
-        const cardEls = cardsRef.current.filter(Boolean);
-        const tiltCleanups = add3DTiltEffect(cardEls);
-
-        const handleResize = () => {
-            ScrollTrigger.refresh();
-        };
+        const handleResize = () => ScrollTrigger.refresh();
         window.addEventListener('resize', handleResize);
 
         return () => {
-            if (scrollInstance && scrollInstance.scrollTrigger) {
-                scrollInstance.scrollTrigger.kill();
-                scrollInstance.kill();
-            }
-            tiltCleanups.forEach(fn => fn && fn());
+            cancelled = true;
+            cancelAnimationFrame(rafId);
+            dispose.forEach(fn => fn && fn());
             window.removeEventListener('resize', handleResize);
         };
-    }, []);
+    }, [projects]);
 
     return (
         <section id="projects" ref={sectionRef} className="projects-section">
             <div className="container projects-header">
-                <span className="section-subtitle">Portfolio</span>
-                <h2>My Projects</h2>
-                <p className="section-description">Showcasing my work in AI, ML, and data-driven solutions.</p>
+                <span className="section-kicker mono">{'\u002f\u002f 06 — PROJECTS'}</span>
+                <h2>Systems I have shipped end-to-end</h2>
+                <p className="section-description">
+                    Each build uses the same glass treatment—dense technical bullets on the right rails, calibrated metrics chips,
+                    and hero imagery anchored to neo mesh lighting.
+                </p>
             </div>
-            <div className="projects-scroll-wrapper" ref={wrapperRef}>
+
+            <div className="container projects-featured-stack">
                 {projects.map((project, index) => (
-                    <div
+                    <FeaturedProjectCard
                         key={project.id}
-                        className="project-card"
-                        ref={el => cardsRef.current[index] = el}
-                    >
-                        <Card>
-                            <div style={{ position: 'relative', overflow: 'hidden' }}>
-                                <img
-                                    src={project.image}
-                                    alt={project.title}
-                                    onError={(e) => {
-                                        e.target.onerror = null;
-                                        e.target.src = `https://placehold.co/400x200/0a0a1a/5b8af7?text=${encodeURIComponent(project.title.substring(0, 15))}`;
-                                    }}
-                                />
-                            </div>
-                            <CardHeader>
-                                <CardTitle style={{ fontSize: '1.125rem' }}>{project.title}</CardTitle>
-                            </CardHeader>
-                            <CardContent>
-                                <p style={{
-                                    fontSize: '0.875rem',
-                                    color: 'hsl(var(--muted-foreground))',
-                                    marginBottom: '1rem',
-                                    lineHeight: 1.6
-                                }}>
-                                    {project.description}
-                                </p>
-                                {project.link ? (
-                                    <Button variant="outline" size="sm" style={{ width: '100%' }} asChild>
-                                        <a href={project.link} target="_blank" rel="noopener noreferrer">
-                                            View on GitHub &rarr;
-                                        </a>
-                                    </Button>
-                                ) : (
-                                    <Button variant="outline" size="sm" style={{ width: '100%' }}>
-                                        View Project &rarr;
-                                    </Button>
-                                )}
-                            </CardContent>
-                        </Card>
-                    </div>
+                        project={project}
+                        flipLayout={index % 2 === 1}
+                        cardRef={(el) => {
+                            cardsRef.current[index] = el;
+                        }}
+                    />
                 ))}
             </div>
         </section>

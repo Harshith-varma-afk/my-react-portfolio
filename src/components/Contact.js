@@ -54,7 +54,7 @@ const Contact = () => {
     return (
         <section id="contact" ref={sectionRef} style={{ opacity: 0 }}>
             <div className="container">
-                <span className="section-subtitle">Connect</span>
+                <span className="section-kicker mono">{'\u002f\u002f 07 — CONTACT'}</span>
                 <h2>Get In Touch</h2>
                 <p className="section-description">
                     Have a question or want to work together? Feel free to reach out!

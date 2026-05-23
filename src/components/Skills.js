@@ -42,9 +42,9 @@ const Skills = ({ skills }) => {
     return (
         <section id="skills" ref={sectionRef}>
             <div className="container">
-                <span className="section-subtitle">Expertise</span>
+                <span className="section-kicker mono">{'\u002f\u002f 04 — STACK'}</span>
                 <h2>My Skills</h2>
-                <p className="section-description">Technologies and tools I work with daily.</p>
+                <p className="section-description">Languages, deep learning, LLM tooling, CV/NLP, cloud MLOps, and analytics—grouped like my résumé.</p>
                 <div className="skills-grid" ref={gridRef}>
                     {skills.map((category, index) => (
                         <Card
