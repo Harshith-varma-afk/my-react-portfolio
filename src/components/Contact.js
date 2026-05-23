@@ -54,15 +54,14 @@ const Contact = () => {
     return (
         <section id="contact" ref={sectionRef} style={{ opacity: 0 }}>
             <div className="container">
-                <span className="section-kicker mono">{'\u002f\u002f 07 — CONTACT'}</span>
                 <h2>Get In Touch</h2>
                 <p className="section-description">
-                    Have a question or want to work together? Feel free to reach out!
+                    Form below is boring but reliable—use it if posting here felt easier than cold-emailing blind.
                 </p>
                 <Card className="contact-card">
                     <CardHeader>
                         <CardTitle>Send Me a Message</CardTitle>
-                        <CardDescription>I'll get back to you as soon as possible.</CardDescription>
+                        <CardDescription>If it’s not urgent I usually batch replies after class or work blocks.</CardDescription>
                     </CardHeader>
                     <CardContent>
                         <form onSubmit={handleSubmit}>

@@ -23,10 +23,9 @@ const Education = ({ entries }) => {
     return (
         <section id="education" ref={sectionRef}>
             <div className="container">
-                <span className="section-kicker mono">{'\u002f\u002f 04 — EDUCATION'}</span>
                 <h2>Education</h2>
                 <p className="section-description">
-                    Graduate training that grounds the applied ML and LLM systems work in the projects and experience above.
+                    Formal degree stuff only—copied deliberately from whatever’s on my PDF.
                 </p>
                 <div className="experience-timeline" ref={timelineRef}>
                     <div

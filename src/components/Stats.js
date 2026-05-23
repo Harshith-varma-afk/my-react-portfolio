@@ -44,8 +44,10 @@ const Stats = ({ stats }) => {
     return (
         <section id="stats" ref={sectionRef}>
             <div className="container">
-                <span className="section-kicker mono">{'\u002f\u002f 02 — STATS'}</span>
                 <h2>My Achievements</h2>
+                <p className="section-description">
+                    A few tidy numbers—the résumé has the receipts if you want the full rundown.
+                </p>
                 <div className="stats-grid" ref={gridRef}>
                     {stats.map((stat, index) => (
                         <Card

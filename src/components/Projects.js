@@ -83,11 +83,9 @@ const Projects = ({ projects }) => {
     return (
         <section id="projects" className="projects-section">
             <div className="container projects-header">
-                <span className="section-kicker mono">{'\u002f\u002f 06 — PROJECTS'}</span>
                 <h2>Systems I have shipped end-to-end</h2>
                 <p className="section-description">
-                    Each build uses the same glass treatment—dense technical bullets on the right rails, calibrated metrics chips,
-                    and hero imagery anchored to layered mesh lighting.
+                    Write-ups worth reading if you actually want intent, trade-offs, metrics—not just badges.
                 </p>
             </div>
 

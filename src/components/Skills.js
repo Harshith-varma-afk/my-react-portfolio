@@ -19,12 +19,9 @@ const Skills = ({ skills }) => {
     return (
         <section id="skills" ref={sectionRef}>
             <div className="container">
-                <span className="section-kicker mono">{'\u002f\u002f 05 — STACK'}</span>
                 <h2>Technical stack</h2>
                 <p className="section-description">
-                    Six-category stack spanning LLMs, modeling, analytics, backends, infra, and collaboration tooling. Edit{' '}
-                    <span className="mono" style={{ fontSize: '0.85em', color: 'hsl(var(--muted-foreground))' }}>skillsData</span>{' '}
-                    in portfolioData.js so every chip matches what you&apos;ve shipped.
+                    Loose buckets—not claiming I&apos;ve shipped every badge on here in anger.
                 </p>
                 <div className="skills-grid skills-grid-compact" ref={gridRef}>
                     {skills.map(category => (
