@@ -603,16 +603,30 @@ body::after {
     animation: none;
 }
 
-/* Hero lead-in line above the name */
+/* Hero monochrome kicker + gradient accent phrases */
 .hero-kicker {
-    font-size: clamp(0.84rem, 2.15vw, 0.94rem);
+    font-size: clamp(0.75rem, 2vw, 0.8125rem);
     font-weight: 500;
-    letter-spacing: -0.012em;
-    text-transform: none;
-    max-width: 36rem;
-    line-height: 1.65;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
     color: hsl(var(--muted-foreground));
     margin-bottom: 1rem;
+}
+
+.hero-slash-role {
+    letter-spacing: 0.08em;
+    color: hsl(var(--primary));
+    opacity: 0.92;
+}
+
+.hero-highlight-italic {
+    font-style: italic;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    background: linear-gradient(110deg, hsl(var(--accent)) 0%, hsl(var(--primary)) 52%, hsl(var(--glow-flare)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
 /* Hero text animations */

@@ -136,8 +136,9 @@ const Hero = ({ smoothScroll }) => {
 
             <div className="container">
                 <div className="hero-content">
-                    <p className="hero-kicker" ref={greetingRef} style={{ opacity: 0 }}>
-                        MS Data Science at UAB. I spend most days in Python touching LLMs, retrieval, and whatever needs to survive past a notebook.
+                    <p className="hero-kicker mono" ref={greetingRef} style={{ opacity: 0 }}>
+                        {'\u002f\u002f 01 — PROFILE '}
+                        <span className="hero-slash-role"> / MS DS · AI ENG</span>
                     </p>
                     <div className="hero-image-container" ref={imageRef} style={{ opacity: 0 }}>
                         <img
@@ -162,7 +163,9 @@ const Hero = ({ smoothScroll }) => {
                         <span className="cursor">|</span>
                     </p>
                     <p className="hero-description" ref={descriptionRef} style={{ opacity: 0 }}>
-                        GPA 3.66. Coursework skewed DL, NLP, and probabilistic ML. I care whether the pipeline is debuggable when something breaks at 9 pm—not whether the README sounds impressive.
+                        MS Data Science @ UAB (GPA 3.66 · coursework: Deep Learning, NLP, probabilistic ML) —
+                        summarizing messy signal into{' '}
+                        <span className="hero-highlight-italic">LLM systems, agentic AI &amp; scalable inference.</span>
                     </p>
                     <div className="hero-buttons" ref={buttonsRef} style={{ opacity: 0 }}>
                         <div ref={viewWorkBtnRef}>
