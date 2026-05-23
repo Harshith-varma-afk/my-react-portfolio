@@ -42,7 +42,7 @@ export const projectsData = [
     },
     {
         id: 2,
-        image: `${process.env.PUBLIC_URL}/ner1.png`,
+        image: `${process.env.PUBLIC_URL}/ner4.png`,
         title: 'Multimodal Dietary Assessment: Visual Food Recognition with Portion-Aware Caloric Estimation',
         description:
             'Two-stage vision pipeline pairing YOLOv8-L detection (mAP@0.5: 0.82) with SAM segmentation on 5,400 custom meal images; calibrated 2D-to-volume heuristics to fix a 15% bias on calorie-dense foods, plus a Streamlit longitudinal macro dashboard piloted with UAB students.',
