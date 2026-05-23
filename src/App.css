@@ -1243,27 +1243,7 @@ section h2::after {
 @media (min-width: 900px) {
     .project-featured {
         grid-template-columns: 1fr 1.12fr;
-        align-items: center;
-    }
-
-    .project-featured--flip {
-        grid-template-columns: 1.12fr 1fr;
-    }
-
-    .project-featured--flip .project-featured-visual {
-        grid-column: 2;
-    }
-
-    .project-featured--flip .project-featured-body {
-        grid-column: 1;
-    }
-}
-
-@media (max-width: 899px) {
-    /* Single column stack: drop explicit columns so thumbnail always reads top-first */
-    .project-featured--flip .project-featured-visual,
-    .project-featured--flip .project-featured-body {
-        grid-column: auto;
+        align-items: start;
     }
 }
 
@@ -1872,8 +1852,7 @@ footer::before {
    ============================================ */
 .stat-card,
 .skill-category,
-.certification-card,
-.project-featured {
+.certification-card {
     transform-style: preserve-3d;
     backface-visibility: hidden;
 }

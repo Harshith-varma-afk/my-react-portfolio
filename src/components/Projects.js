@@ -1,9 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import { cn } from '../lib/utils';
-import { add3DTiltEffect, ScrollTrigger } from '../lib/animations';
 
 /** Full-width neo glass featured layout for each project entry. */
-const FeaturedProjectCard = ({ project, cardRef, flipLayout }) => {
+const FeaturedProjectCard = ({ project }) => {
     const p = project;
     const hasBullets =
         Array.isArray(p.bulletsLeft) &&
@@ -11,13 +10,7 @@ const FeaturedProjectCard = ({ project, cardRef, flipLayout }) => {
         (p.bulletsLeft.length > 0 || p.bulletsRight.length > 0);
 
     return (
-        <div
-            ref={cardRef}
-            className={cn(
-                'project-featured neo-glass-heavy',
-                flipLayout && 'project-featured--flip'
-            )}
-        >
+        <div className="project-featured neo-glass-heavy">
             <div className="project-featured-visual neo-mesh-pane">
                 <img
                     src={p.image}
@@ -87,31 +80,8 @@ const FeaturedProjectCard = ({ project, cardRef, flipLayout }) => {
 };
 
 const Projects = ({ projects }) => {
-    const sectionRef = useRef(null);
-    const cardsRef = useRef([]);
-
-    useEffect(() => {
-        let dispose = [];
-
-        let cancelled = false;
-        const rafId = requestAnimationFrame(() => {
-            if (cancelled) return;
-            dispose = add3DTiltEffect(cardsRef.current.filter(Boolean));
-        });
-
-        const handleResize = () => ScrollTrigger.refresh();
-        window.addEventListener('resize', handleResize);
-
-        return () => {
-            cancelled = true;
-            cancelAnimationFrame(rafId);
-            dispose.forEach(fn => fn && fn());
-            window.removeEventListener('resize', handleResize);
-        };
-    }, [projects]);
-
     return (
-        <section id="projects" ref={sectionRef} className="projects-section">
+        <section id="projects" className="projects-section">
             <div className="container projects-header">
                 <span className="section-kicker mono">{'\u002f\u002f 06 — PROJECTS'}</span>
                 <h2>Systems I have shipped end-to-end</h2>
@@ -122,15 +92,8 @@ const Projects = ({ projects }) => {
             </div>
 
             <div className="container projects-featured-stack">
-                {projects.map((project, index) => (
-                    <FeaturedProjectCard
-                        key={project.id}
-                        project={project}
-                        flipLayout={index % 2 === 1}
-                        cardRef={(el) => {
-                            cardsRef.current[index] = el;
-                        }}
-                    />
+                {projects.map(project => (
+                    <FeaturedProjectCard key={project.id} project={project} />
                 ))}
             </div>
         </section>
