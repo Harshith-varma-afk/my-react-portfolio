@@ -1,83 +1,52 @@
 import React, { useEffect, useRef } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from './ui/card';
-import { Badge } from './ui/badge';
-import { Progress } from './ui/progress';
-import { animateCards, animateProgressBars, add3DTiltEffect } from '../lib/animations';
+import { animateCards } from '../lib/animations';
 
 const Skills = ({ skills }) => {
     const sectionRef = useRef(null);
     const gridRef = useRef(null);
-    const cardRefs = useRef([]);
 
     useEffect(() => {
-        // Staggered card reveal with 3D rotation
         if (gridRef.current) {
             animateCards(gridRef.current, '.skill-category', {
-                y: 60,
-                stagger: 0.1,
-                duration: 0.8,
+                y: 48,
+                stagger: 0.08,
+                duration: 0.72,
             });
         }
-
-        // 3D tilt on skill category cards
-        const cardEls = cardRefs.current.filter(Boolean);
-        const tiltCleanups = add3DTiltEffect(cardEls);
-
-        // Fill progress bars with delay
-        if (gridRef.current) {
-            const timer = setTimeout(() => {
-                animateProgressBars(gridRef.current);
-            }, 300);
-            return () => {
-                clearTimeout(timer);
-                tiltCleanups.forEach(fn => fn && fn());
-            };
-        }
-
-        return () => {
-            tiltCleanups.forEach(fn => fn && fn());
-        };
     }, []);
 
     return (
         <section id="skills" ref={sectionRef}>
             <div className="container">
-                <span className="section-kicker mono">{'\u002f\u002f 04 — STACK'}</span>
-                <h2>My Skills</h2>
-                <p className="section-description">Languages, deep learning, LLM tooling, CV/NLP, cloud MLOps, and analytics—grouped like my résumé.</p>
-                <div className="skills-grid" ref={gridRef}>
-                    {skills.map((category, index) => (
+                <span className="section-kicker mono">{'\u002f\u002f 05 — STACK'}</span>
+                <h2>Technical stack</h2>
+                <p className="section-description">
+                    A tightened snapshot of tooling I rely on daily—groups mirror the résumé without noisy lists.
+                </p>
+                <div className="skills-grid skills-grid-compact" ref={gridRef}>
+                    {skills.map(category => (
                         <Card
-                            key={index}
-                            className="skill-category"
+                            key={category.category}
+                            className="skill-category skill-category--chips"
                             style={{ opacity: 0 }}
-                            ref={el => cardRefs.current[index] = el}
                         >
-                            <CardHeader style={{ paddingBottom: '0.75rem' }}>
-                                <CardTitle style={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    gap: '0.75rem',
-                                    fontSize: '1.0625rem'
-                                }}>
-                                    <span className="category-icon">{category.icon}</span>
+                            <CardHeader className="skill-category-head">
+                                <CardTitle className="skill-category-title">
+                                    <span className="category-icon" aria-hidden>
+                                        {category.icon}
+                                    </span>
                                     {category.category}
                                 </CardTitle>
                             </CardHeader>
-                            <CardContent>
-                                <div className="skill-items">
-                                    {category.items.map((item, idx) => (
-                                        <div className="skill-item" key={idx}>
-                                            <div className="skill-info">
-                                                <span className="skill-name">{item}</span>
-                                                <Badge variant="secondary" style={{ fontSize: '0.7rem' }}>
-                                                    {category.levels[idx]}%
-                                                </Badge>
-                                            </div>
-                                            <Progress value={category.levels[idx]} />
-                                        </div>
+                            <CardContent className="skill-category-body">
+                                <ul className="skills-chip-cloud">
+                                    {category.items.map(item => (
+                                        <li key={`${category.category}-${item}`}>
+                                            <span className="skills-chip">{item}</span>
+                                        </li>
                                     ))}
-                                </div>
+                                </ul>
                             </CardContent>
                         </Card>
                     ))}

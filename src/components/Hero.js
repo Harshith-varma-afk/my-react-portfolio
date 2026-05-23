@@ -142,12 +142,12 @@ const Hero = ({ smoothScroll }) => {
                     </p>
                     <div className="hero-image-container" ref={imageRef} style={{ opacity: 0 }}>
                         <img
-                            src="prof.jpg"
+                            src={`${process.env.PUBLIC_URL}/prof.webp`}
                             alt="Harshith Varma"
                             className="hero-img"
                             onError={(e) => {
                                 e.target.onerror = null;
-                                e.target.src = "https://placehold.co/180x180/071018/2ee6d6?text=HV";
+                                e.target.src = "https://placehold.co/180x180/120e16/f0a31a?text=HV";
                             }}
                         />
                     </div>

@@ -3,6 +3,7 @@ import { Download, ArrowUpRight } from 'lucide-react';
 import { Button } from './ui/button';
 import { cn } from '../lib/utils';
 import { animateNavbar } from '../lib/animations';
+import { resumePdfHref } from '../data/portfolioData';
 
 const Navbar = ({ smoothScroll }) => {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -45,6 +46,7 @@ const Navbar = ({ smoothScroll }) => {
         <>
             <Button variant="ghost" size="sm" onClick={() => handleNavClick('#about')}>About</Button>
             <Button variant="ghost" size="sm" onClick={() => handleNavClick('#experience')}>Experience</Button>
+            <Button variant="ghost" size="sm" onClick={() => handleNavClick('#education')}>Education</Button>
             <Button variant="ghost" size="sm" onClick={() => handleNavClick('#projects')}>Projects</Button>
             <Button variant="ghost" size="sm" onClick={() => handleNavClick('#skills')}>Stack</Button>
             <Button variant="ghost" size="sm" onClick={() => handleNavClick('#contact')}>Contact</Button>
@@ -64,8 +66,8 @@ const Navbar = ({ smoothScroll }) => {
 
                 <div className="navbar-trailing-desktop">
                     <a
-                        href="resume.pdf"
-                        download="Harshith_AI_Data_Resume.pdf"
+                        href={resumePdfHref}
+                        download="Harshith_Varma_Rudraraju_Resume.pdf"
                         className={cn(
                             'btn-component btn-gradient btn-sm',
                             'nav-resume-cta'
@@ -94,8 +96,8 @@ const Navbar = ({ smoothScroll }) => {
                 <div className={`navbar-nav navbar-nav-drawer ${isMobileOpen ? 'open' : ''}`}>
                     {linkBtns}
                     <a
-                        href="resume.pdf"
-                        download="Harshith_AI_Data_Resume.pdf"
+                        href={resumePdfHref}
+                        download="Harshith_Varma_Rudraraju_Resume.pdf"
                         className={cn(
                             'btn-component btn-outline btn-sm neo-mobile-resume-link'
                         )}

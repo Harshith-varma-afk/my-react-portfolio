@@ -18,7 +18,7 @@ A modern, responsive portfolio website showcasing my journey as an MS Data Scien
   - Work experience timeline
   - Skills showcase with progress bars
   - Project gallery with hover effects
-  - Certifications display
+  - Education timeline (degree, GPA, coursework)
   - Contact form with EmailJS integration
   - Downloadable resume
 
@@ -87,7 +87,7 @@ my-portfolio/
 ├── public/
 │   ├── faces.jpg
 │   ├── lipnet.jpg
-│   ├── prof.jpg
+│   ├── prof.webp
 │   ├── resume.pdf
 │   ├── hv-favicon.svg
 │   └── index.html

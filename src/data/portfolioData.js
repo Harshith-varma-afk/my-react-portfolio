@@ -8,10 +8,17 @@ import {
     BarChart3,
 } from 'lucide-react';
 
+/**
+ * Navbar / download link for the résumé in `public/resume.pdf`.
+ * Bump REV after each PDF upload so browsers don’t reuse a stale cached file.
+ */
+const RESUME_CACHE_KEY = '20260223-a';
+export const resumePdfHref = `${process.env.PUBLIC_URL}/resume.pdf?v=${RESUME_CACHE_KEY}`;
+
 export const projectsData = [
     {
         id: 1,
-        image: 'https://placehold.co/640x420/071018/2ee6d6?text=Summarization',
+        image: `${process.env.PUBLIC_URL}/ner.png`,
         title: 'Token-Efficient Long-Context Summarization via Hierarchical Attention Distillation',
         description:
             'Fine-tuned Mistral-7B with LoRA (rank=16) on 18K PubMed scientific abstracts using a custom hierarchical summarization objective—cutting token cost by ~63% versus full-context inference with minimal ROUGE-L degradation.',
@@ -35,7 +42,7 @@ export const projectsData = [
     },
     {
         id: 2,
-        image: 'https://placehold.co/640x420/071018/2ee6d6?text=Dietary+CV',
+        image: `${process.env.PUBLIC_URL}/ner1.png`,
         title: 'Multimodal Dietary Assessment: Visual Food Recognition with Portion-Aware Caloric Estimation',
         description:
             'Two-stage vision pipeline pairing YOLOv8-L detection (mAP@0.5: 0.82) with SAM segmentation on 5,400 custom meal images; calibrated 2D-to-volume heuristics to fix a 15% bias on calorie-dense foods, plus a Streamlit longitudinal macro dashboard piloted with UAB students.',
@@ -59,7 +66,7 @@ export const projectsData = [
     },
     {
         id: 3,
-        image: 'https://placehold.co/640x420/071018/2ee6d6?text=Diabetes+ML',
+        image: `${process.env.PUBLIC_URL}/ner2.png`,
         title: 'CDC Diabetes Health Indicators: Multi-Model BRFSS Classification with SMOTENC, PCA & Hyperparameter Search',
         description:
             'Final-course case study forecasting diabetes progression from the CDC Diabetes Health Indicators dataset—253k+ BRFSS-derived records and 21 risk-factor attributes. Models separate healthy vs combined at-risk cohorts and pre-diabetic vs diabetic subgroups against severe class imbalance, using SMOTENC, z-score normalization, PCA (95% variance), and imbalance-aware scoring (precision, recall, F1).',
@@ -83,7 +90,7 @@ export const projectsData = [
     },
     {
         id: 4,
-        image: 'https://placehold.co/640x420/071018/2ee6d6?text=CHATDB+RAG',
+        image: `${process.env.PUBLIC_URL}/ner3.png`,
         title: 'CHATDB — AI-Powered Database & Document Intelligence (RAG)',
         description:
             'Triple Streamlit workspace combining natural-language→SQL against MySQL, AI-guided CSV ingestion with automatic typing, and conversational PDF analysis. LangChain stitches few-shot retrieval (Chroma) for resilient SQL grounding, PyMySQL/SQLAlchemy execution, recursive chunking plus FAISS for document RAG, and optional PaLM/Google GenAI backends alongside OpenAI.',
@@ -107,105 +114,55 @@ export const projectsData = [
     },
 ];
 
+/** Curated stacks only — percentages removed in UI */
 export const skillsData = [
     {
         category: 'Languages',
-        items: ['Python', 'SQL', 'R', 'Bash', 'NumPy', 'Pandas', 'SciPy'],
-        levels: [95, 90, 80, 75, 90, 95, 85],
+        items: ['Python', 'SQL', 'R', 'NumPy · Pandas'],
         icon: <Code className="w-5 h-5" />,
     },
     {
-        category: 'ML & Deep Learning',
-        items: [
-            'PyTorch',
-            'TensorFlow/Keras',
-            'Scikit-learn',
-            'XGBoost',
-            'LightGBM',
-            'Hugging Face Transformers',
-            'LoRA/PEFT',
-            'Diffusers',
-        ],
-        levels: [92, 86, 90, 86, 86, 90, 82, 78],
+        category: 'ML · DL',
+        items: ['PyTorch', 'scikit-learn', 'XGBoost / LightGBM', 'Hugging Face · LoRA'],
         icon: <Cpu className="w-5 h-5" />,
     },
     {
-        category: 'LLM & Agentic AI',
-        items: [
-            'LangChain',
-            'LlamaIndex',
-            'OpenAI API',
-            'Anthropic API',
-            'LangSmith',
-            'FAISS',
-            'Chroma',
-            'RAG pipelines',
-            'Multi-agent orchestration',
-        ],
-        levels: [94, 86, 92, 88, 86, 90, 84, 95, 88],
+        category: 'LLM · RAG',
+        items: ['LangChain', 'LlamaIndex', 'OpenAI · Anthropic', 'FAISS · Chroma'],
         icon: <Database className="w-5 h-5" />,
     },
     {
-        category: 'Computer Vision',
-        items: [
-            'YOLOv8',
-            'Segment Anything Model (SAM)',
-            'OpenCV',
-            'torchvision',
-            'Segmentation & detection',
-        ],
-        levels: [88, 82, 90, 86, 84],
+        category: 'Vision · NLP',
+        items: ['YOLOv8', 'SAM', 'OpenCV', 'BERT / encoder models'],
         icon: <Globe className="w-5 h-5" />,
     },
     {
-        category: 'NLP',
-        items: [
-            'BERT',
-            'BioMedBERT',
-            'Instructor-XL',
-            'Text classification',
-            'Intent detection',
-            'ROUGE',
-            'BERTScore',
-        ],
-        levels: [90, 86, 86, 92, 90, 85, 85],
-        icon: <Code className="w-5 h-5" />,
-    },
-    {
-        category: 'MLOps & Cloud',
-        items: [
-            'Docker',
-            'AWS',
-            'SageMaker',
-            'S3',
-            'EC2',
-            'Evidently AI',
-            'MLflow',
-            'Git',
-            'GitHub Actions',
-        ],
-        levels: [86, 85, 80, 84, 80, 85, 86, 92, 88],
+        category: 'MLOps · cloud',
+        items: ['Docker', 'AWS · SageMaker', 'GitHub Actions', 'Evidently · MLflow'],
         icon: <Briefcase className="w-5 h-5" />,
     },
     {
-        category: 'Data & Visualization',
-        items: [
-            'PostgreSQL',
-            'Power BI',
-            'Tableau',
-            'Matplotlib',
-            'Seaborn',
-            'Streamlit',
-            'Plotly',
-            'EDA & hypothesis testing',
-        ],
-        levels: [88, 88, 82, 90, 88, 86, 82, 90],
+        category: 'Data · Viz',
+        items: ['PostgreSQL', 'Power BI · Tableau', 'Streamlit', 'EDA pipelines'],
         icon: <BarChart3 className="w-5 h-5" />,
     },
 ];
 
-/** Résumé PDF does not list standalone certifications; LinkedIn retains historical credentials. */
-export const certificationsData = [];
+/** Graduate programs — matches résumé education section */
+export const educationData = [
+    {
+        id: 1,
+        degree: 'M.S., Data Science',
+        school: 'University of Alabama at Birmingham (UAB)',
+        location: 'Birmingham, Alabama, USA',
+        period: '2024 — Present',
+        highlights: [
+            'GPA 3.66 / 4.0',
+            'Coursework: Deep Learning, Natural Language Processing, Probabilistic Machine Learning, and related statistical learning electives',
+            'Hands-on coursework and semester projects spanning RAG, computer vision, and large-scale tabular modeling (see Projects)',
+        ],
+    },
+];
 
 export const experienceData = [
     {

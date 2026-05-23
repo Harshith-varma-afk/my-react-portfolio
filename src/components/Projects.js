@@ -18,7 +18,7 @@ const FeaturedProjectCard = ({ project }) => {
                     className="project-featured-img"
                     onError={(e) => {
                         e.target.onerror = null;
-                        e.target.src = `https://placehold.co/640x420/071018/2ee6d6?text=${encodeURIComponent(p.title.slice(0, 12))}`;
+                        e.target.src = `https://placehold.co/640x420/120e16/f0a31a?text=${encodeURIComponent(p.title.slice(0, 12))}`;
                     }}
                 />
             </div>
@@ -87,7 +87,7 @@ const Projects = ({ projects }) => {
                 <h2>Systems I have shipped end-to-end</h2>
                 <p className="section-description">
                     Each build uses the same glass treatment—dense technical bullets on the right rails, calibrated metrics chips,
-                    and hero imagery anchored to neo mesh lighting.
+                    and hero imagery anchored to layered mesh lighting.
                 </p>
             </div>
 

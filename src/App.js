@@ -3,13 +3,13 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import Stats from './components/Stats';
 import Experience from './components/Experience';
+import Education from './components/Education';
 import Skills from './components/Skills';
-import Certifications from './components/Certifications';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import FloatingActionButton from './components/FloatingActionButton';
-import { projectsData, skillsData, certificationsData, experienceData, statsData } from './data/portfolioData';
+import { projectsData, skillsData, educationData, experienceData, statsData } from './data/portfolioData';
 import {
     createScrollProgress,
     createPreloader,
@@ -70,8 +70,8 @@ const App = () => {
             <Hero smoothScroll={smoothScroll} />
             <Stats stats={statsData} />
             <Experience experiences={experienceData} />
+            <Education entries={educationData} />
             <Skills skills={skillsData} />
-            <Certifications certifications={certificationsData} />
             <Projects projects={projectsData} />
             <Contact />
             <Footer />
